@@ -12,6 +12,18 @@
     <title>Title</title>
 </head>
 <body>
+
+<form action="/user/add" method="post">
+    <label>id</label>
+    <input type="text" name="id"> <br>
+    <label>ho ten</label>
+    <input type="text" name="hoTen"> <br>
+    <label>tuoi</label>
+    <input type="text" name="tuoi"> <br>
+    <label>dia chi</label>
+    <input type="text" name="diaChi"> <br>
+    <button type="submit">Submit</button>
+</form>
 <h1>Danh sach user la:</h1>
 <table>
     <thead>
@@ -30,9 +42,9 @@
             <td>${user.hoTen}</td>
             <td>${user.tuoi}</td>
             <td>${user.diaChi}</td>
-            <td> <c:if test="${user.tuoi > 18}">Thanh nien</c:if>
+            <td><c:if test="${user.tuoi > 18}">Thanh nien</c:if>
                 <c:if test="${user.tuoi <= 18}">Tre con</c:if></td>
-<%--            Toan tu 3 ngoi--%>
+                <%--            Toan tu 3 ngoi--%>
             <td>${user.tuoi > 18 ? "Thanh nien": "Tre con"} </td>
         </tr>
     </c:forEach>
