@@ -12,6 +12,7 @@ import java.util.ArrayList;
         "/home",
         "/user/hien-thi",// hien thi 1 danh sach user
         "/user/add", //post
+        "/user/detail",
 
 })
 public class HomeServlet extends HttpServlet {
@@ -44,6 +45,8 @@ public class HomeServlet extends HttpServlet {
 
             request.setAttribute("listUser", listUser);
             request.getRequestDispatcher("/user.jsp").forward(request, response);
+        } else if (uri.contains("/user/detail")) {
+            request.getRequestDispatcher("/detail.jsp").forward(request, response);
         }
     }
 

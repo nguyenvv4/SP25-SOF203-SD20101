@@ -19,7 +19,7 @@
     <label>ho ten</label>
     <input type="text" name="hoTen"> <br>
     <label>tuoi</label>
-    <input type="text" name="tuoi"> <br>
+    <input type="number" name="tuoi"> <br>
     <label>dia chi</label>
     <input type="text" name="diaChi"> <br>
     <button type="submit">Submit</button>
@@ -45,7 +45,8 @@
             <td><c:if test="${user.tuoi > 18}">Thanh nien</c:if>
                 <c:if test="${user.tuoi <= 18}">Tre con</c:if></td>
                 <%--            Toan tu 3 ngoi--%>
-            <td>${user.tuoi > 18 ? "Thanh nien": "Tre con"} </td>
+<%--            <td>${user.tuoi > 18 ? "Thanh nien": "Tre con"} </td>--%>
+            <td><a href="/user/detail">Chi tiet</a></td>
         </tr>
     </c:forEach>
     </tbody>
