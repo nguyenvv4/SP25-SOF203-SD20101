@@ -12,15 +12,15 @@
 </head>
 <body>
 
-<form action="/user/add" method="post">
+<form action="#" method="post">
     <label>id</label>
-    <input type="text" name="id"> <br>
+    <input type="text" name="id" value="${detail.id}"> <br>
     <label>ho ten</label>
-    <input type="text" name="hoTen"> <br>
+    <input type="text" name="hoTen" value="${detail.hoTen}"> <br>
     <label>tuoi</label>
-    <input type="number" name="tuoi"> <br>
+    <input type="number" name="tuoi" value="${detail.tuoi}"> <br>
     <label>dia chi</label>
-    <input type="text" name="diaChi"> <br>
+    <input type="text" name="diaChi" value="${detail.diaChi}"> <br>
     <button type="submit">Submit</button>
 </form>
 </body>

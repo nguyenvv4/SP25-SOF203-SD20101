@@ -46,7 +46,9 @@
                 <c:if test="${user.tuoi <= 18}">Tre con</c:if></td>
                 <%--            Toan tu 3 ngoi--%>
 <%--            <td>${user.tuoi > 18 ? "Thanh nien": "Tre con"} </td>--%>
-            <td><a href="/user/detail">Chi tiet</a></td>
+<%--             ?id= la cu phap truyen tham so co ten la id voi gia tri la
+${user.id} tu trang chu sang trang detail--%>
+            <td><a href="/user/detail?id=${user.id}">Chi tiet</a></td>
         </tr>
     </c:forEach>
     </tbody>

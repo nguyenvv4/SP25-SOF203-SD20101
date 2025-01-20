@@ -46,6 +46,15 @@ public class HomeServlet extends HttpServlet {
             request.setAttribute("listUser", listUser);
             request.getRequestDispatcher("/user.jsp").forward(request, response);
         } else if (uri.contains("/user/detail")) {
+            Integer id = Integer.parseInt(request.getParameter("id"));
+            User detail = new User();
+            for (User user : listUser) {
+                if (id.equals(user.getId())) {
+                    detail = user;
+                }
+            }
+            request.setAttribute("detail", detail);
+
             request.getRequestDispatcher("/detail.jsp").forward(request, response);
         }
     }
