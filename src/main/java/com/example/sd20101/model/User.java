@@ -9,6 +9,18 @@ public class User {
     private Integer tuoi;
 
     private String diaChi;
+    private String gioiTinh;
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", hoTen='" + hoTen + '\'' +
+                ", tuoi=" + tuoi +
+                ", diaChi='" + diaChi + '\'' +
+                '}';
+    }
 
     public User(Integer id, String hoTen, Integer tuoi, String diaChi) {
         this.id = id;
@@ -17,7 +29,23 @@ public class User {
         this.diaChi = diaChi;
     }
 
+    public User(Integer id, String hoTen, Integer tuoi, String diaChi, String gioiTinh) {
+        this.id = id;
+        this.hoTen = hoTen;
+        this.tuoi = tuoi;
+        this.diaChi = diaChi;
+        this.gioiTinh = gioiTinh;
+    }
+
     public User() {
+    }
+
+    public String getGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
     }
 
     public Integer getId() {

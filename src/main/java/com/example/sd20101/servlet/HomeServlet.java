@@ -13,6 +13,8 @@ import java.util.ArrayList;
         "/user/hien-thi",// hien thi 1 danh sach user
         "/user/add", //post
         "/user/detail",
+        "/user/update",
+        "/user/delete",
 
 })
 public class HomeServlet extends HttpServlet {
@@ -20,10 +22,10 @@ public class HomeServlet extends HttpServlet {
 
     public HomeServlet() {
         // thuc hien hien thi danh sach user
-        listUser.add(new User(1, "Nguyen Van A", 15, "Ha Noi"));
-        listUser.add(new User(2, "Nguyen Van B", 16, "Ha Nam"));
-        listUser.add(new User(3, "Nguyen Van C", 20, "Thai Binh"));
-        listUser.add(new User(4, "Nguyen Van B", 19, "Ha Noi"));
+        listUser.add(new User(1, "Nguyen Van A", 15, "Ha Noi", "nam"));
+        listUser.add(new User(2, "Nguyen Van B", 16, "Ha Nam", "nu"));
+        listUser.add(new User(3, "Nguyen Van C", 20, "Thai Binh", "nu"));
+        listUser.add(new User(4, "Nguyen Van B", 19, "Ha Noi", "nu"));
     }
 
     @Override
@@ -56,6 +58,16 @@ public class HomeServlet extends HttpServlet {
             request.setAttribute("detail", detail);
 
             request.getRequestDispatcher("/detail.jsp").forward(request, response);
+        } else if (uri.contains("/user/delete")) {
+            String id = request.getParameter("id");
+            User detail = new User();
+            for (User user : listUser) {
+                if (user.getId() == Integer.parseInt(id)) {
+                    detail = user;
+                }
+            }
+            listUser.remove(detail);
+            response.sendRedirect("/user/hien-thi");
         }
     }
 
@@ -69,12 +81,32 @@ public class HomeServlet extends HttpServlet {
             String hoTen = request.getParameter("hoTen");
             String tuoi = request.getParameter("tuoi");
             String diaChi = request.getParameter("diaChi");
+            String gioiTinh = request.getParameter("gioiTinh");
 
             // b2. Tao doi tuong user tu thong tin vua lay duoc
-            User user = new User(Integer.parseInt(id), hoTen, Integer.parseInt(tuoi), diaChi);
+            User user = new User(Integer.parseInt(id), hoTen, Integer.parseInt(tuoi), diaChi, gioiTinh);
             listUser.add(user);
             response.sendRedirect("/user/hien-thi");
+        } else if (uri.contains("/user/update")) {
+            // b1. lay duoc thong tin cua form
+            String id = request.getParameter("id");
+            String hoTen = request.getParameter("hoTen");
+            String tuoi = request.getParameter("tuoi");
+            String diaChi = request.getParameter("diaChi");
+            // cap nhat thong tin user
+            for (User user : listUser) {
+                if (user.getId() == Integer.parseInt(id)) {
+                    user.setDiaChi(diaChi);
+                    user.setTuoi(Integer.parseInt(tuoi));
+                    user.setHoTen(hoTen);
+                }
+            }
+
+            // mo lai trang chu
+            response.sendRedirect("/user/hien-thi");
+
         }
+
     }
 
     /*

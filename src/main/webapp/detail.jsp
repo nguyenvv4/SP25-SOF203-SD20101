@@ -12,16 +12,19 @@
 </head>
 <body>
 
-<form action="#" method="post">
+<form action="/user/update" method="post">
     <label>id</label>
-    <input type="text" name="id" value="${detail.id}"> <br>
+    <input type="text" name="id" value="${detail.id}" readonly> <br>
     <label>ho ten</label>
     <input type="text" name="hoTen" value="${detail.hoTen}"> <br>
     <label>tuoi</label>
     <input type="number" name="tuoi" value="${detail.tuoi}"> <br>
     <label>dia chi</label>
     <input type="text" name="diaChi" value="${detail.diaChi}"> <br>
-    <button type="submit">Submit</button>
+    <label>gioi tinh</label>
+    <input type="radio" value="nam" name="gioiTinh" ${detail.gioiTinh == 'nam' ?'checked': ''}> Nam
+    <input type="radio" value="nu" name="gioiTinh" ${detail.gioiTinh == 'nu' ?'checked': ''}> Nu <br>
+    <button type="submit">Update</button>
 </form>
 </body>
 </html>
