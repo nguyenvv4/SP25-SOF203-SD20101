@@ -1,12 +1,13 @@
 package com.example.sd20101.servlet;
 
 import com.example.sd20101.model.User;
+import com.example.sd20101.repository.UserRepo;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "HomeServlet", value = {"/HomeServlet",
         "/home",
@@ -18,94 +19,23 @@ import java.util.ArrayList;
 
 })
 public class HomeServlet extends HttpServlet {
-    ArrayList<User> listUser = new ArrayList<>();
 
-    public HomeServlet() {
-        // thuc hien hien thi danh sach user
-        listUser.add(new User(1, "Nguyen Van A", 15, "Ha Noi", "nam"));
-        listUser.add(new User(2, "Nguyen Van B", 16, "Ha Nam", "nu"));
-        listUser.add(new User(3, "Nguyen Van C", 20, "Thai Binh", "nu"));
-        listUser.add(new User(4, "Nguyen Van B", 19, "Ha Noi", "nu"));
-    }
+    UserRepo userRepo = new UserRepo();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uri = request.getRequestURI();
-        if (uri.equals("/home")) {
-            System.out.println("day la trang  home");
-            // mo trang jsp
-            String hoTen = "Nguyen Van A";
-            // set gia tri cho jsp
-            request.setAttribute("hoTen", hoTen);
-
-            User user = new User(1, "Nguyen Van A", 25, "Ha Noi");
-            request.setAttribute("user", user);
-            request.getRequestDispatcher("/home.jsp").forward(request, response);
-        } else if (uri.equals("/HomeServlet")) {
-            System.out.println("HomeServlet");
-        } else if (uri.equals("/user/hien-thi")) {
-
+        if (uri.equals("/user/hien-thi")) {
+            // thuc hien hien thi danh sach tu repo
+            List<User> listUser = userRepo.getUsers();
             request.setAttribute("listUser", listUser);
             request.getRequestDispatcher("/user.jsp").forward(request, response);
-        } else if (uri.contains("/user/detail")) {
-            Integer id = Integer.parseInt(request.getParameter("id"));
-            User detail = new User();
-            for (User user : listUser) {
-                if (id.equals(user.getId())) {
-                    detail = user;
-                }
-            }
-            request.setAttribute("detail", detail);
-
-            request.getRequestDispatcher("/detail.jsp").forward(request, response);
-        } else if (uri.contains("/user/delete")) {
-            String id = request.getParameter("id");
-            User detail = new User();
-            for (User user : listUser) {
-                if (user.getId() == Integer.parseInt(id)) {
-                    detail = user;
-                }
-            }
-            listUser.remove(detail);
-            response.sendRedirect("/user/hien-thi");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Post");
-        String uri = request.getRequestURI();
-        if (uri.contains("/user/add")) {
-            // b1. lay duoc thong tin cua form
-            String id = request.getParameter("id");
-            String hoTen = request.getParameter("hoTen");
-            String tuoi = request.getParameter("tuoi");
-            String diaChi = request.getParameter("diaChi");
-            String gioiTinh = request.getParameter("gioiTinh");
 
-            // b2. Tao doi tuong user tu thong tin vua lay duoc
-            User user = new User(Integer.parseInt(id), hoTen, Integer.parseInt(tuoi), diaChi, gioiTinh);
-            listUser.add(user);
-            response.sendRedirect("/user/hien-thi");
-        } else if (uri.contains("/user/update")) {
-            // b1. lay duoc thong tin cua form
-            String id = request.getParameter("id");
-            String hoTen = request.getParameter("hoTen");
-            String tuoi = request.getParameter("tuoi");
-            String diaChi = request.getParameter("diaChi");
-            // cap nhat thong tin user
-            for (User user : listUser) {
-                if (user.getId() == Integer.parseInt(id)) {
-                    user.setDiaChi(diaChi);
-                    user.setTuoi(Integer.parseInt(tuoi));
-                    user.setHoTen(hoTen);
-                }
-            }
-
-            // mo lai trang chu
-            response.sendRedirect("/user/hien-thi");
-
-        }
 
     }
 
